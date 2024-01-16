@@ -11,7 +11,7 @@ readme = "README.md"
 [dependencies]
 ark-ff = "0.4.0"
 ark-bn254 = { version = "0.4.0" }
-ark-std = { version = "0.4.0" }
+ark-std = { version = "0.4.0", default-features = false }
 
 [dev-dependencies]
 criterion = "0.3"
@@ -19,3 +19,11 @@ criterion = "0.3"
 [[bench]]
 name = "bench_poseidon_hash"
 harness = false
+
+[features]
+default = ["std"]
+std = [
+    "ark-std/std",
+    "ark-ff/std",
+    "ark-bn254/std",
+]

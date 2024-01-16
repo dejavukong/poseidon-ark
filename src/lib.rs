@@ -1,6 +1,9 @@
+#![cfg_attr(not(feature = "std"), no_std)]
 use ark_bn254::Fr;
 use ark_ff::fields::Field;
 use ark_std::str::FromStr;
+use ark_std::vec;
+use ark_std::vec::Vec;
 use ark_std::Zero;
 use core::ops::{AddAssign, MulAssign};
 
@@ -92,10 +95,10 @@ impl Poseidon {
         new_state.clone()
     }
 
-    pub fn hash(&self, inp: Vec<Fr>) -> Result<Fr, String> {
+    pub fn hash(&self, inp: Vec<Fr>) -> Result<Fr, &'static str> {
         let t = inp.len() + 1;
         if inp.is_empty() || inp.len() > self.constants.n_rounds_p.len() {
-            return Err("Wrong inputs length".to_string());
+            return Err("Wrong inputs length");
         }
         let n_rounds_f = self.constants.n_rounds_f.clone();
         let n_rounds_p = self.constants.n_rounds_p[t - 2].clone();
